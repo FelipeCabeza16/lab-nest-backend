@@ -1,0 +1,37 @@
+version: '3.3'
+
+services:
+  postgres-lab-idrd-back:
+    image: postgres:13
+    container_name: postgres-lab-idrd-back
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+  pdadmin-lab-idrd-back:
+    image: dpage/pgadmin4
+    container_name: pgadmin-lab-idrd-back
+    environment:
+      PGADMIN_DEFAULT_EMAIL: 'root@admin.com'
+      PGADMIN_DEFAULT_PASSWORD: 'admin'
+    ports:
+      - "5050:80"
+# sudo docker-compose up -d
+# sudo docker-compose up -d pdadmin
+# sudo docker-compose exec postgres psql -U postgres
+# sudo docker-compose exec postgres bash
+# psql -h localhost -d postgres -U postgres -p 5432
+# sudo docker inspect b9a5960705a9 | grep IPAddress
+# sudo docker exec -it mysql mysql -u root -p
+# CREATE USER 'postgres'@'%' IDENTIFIED BY 'postgres';
+# Query OK, 0 rows affected (0.00 sec)
+
+# mysql> GRANT ALL PRIVILEGES ON *.* TO 'postgres'@'%' WITH GRANT OPTION;
+# Query OK, 0 rows affected (0.00 sec)
+
+# mysql> FLUSH PRIVILEGES;
+# Query OK, 0 rows affected (0.00 sec)
