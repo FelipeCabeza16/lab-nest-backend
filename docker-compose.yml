@@ -20,18 +20,3 @@ services:
       PGADMIN_DEFAULT_PASSWORD: 'admin'
     ports:
       - "5050:80"
-# sudo docker-compose up -d
-# sudo docker-compose up -d pdadmin
-# sudo docker-compose exec postgres psql -U postgres
-# sudo docker-compose exec postgres bash
-# psql -h localhost -d postgres -U postgres -p 5432
-# sudo docker inspect b9a5960705a9 | grep IPAddress
-# sudo docker exec -it mysql mysql -u root -p
-# CREATE USER 'postgres'@'%' IDENTIFIED BY 'postgres';
-# Query OK, 0 rows affected (0.00 sec)
-
-# mysql> GRANT ALL PRIVILEGES ON *.* TO 'postgres'@'%' WITH GRANT OPTION;
-# Query OK, 0 rows affected (0.00 sec)
-
-# mysql> FLUSH PRIVILEGES;
-# Query OK, 0 rows affected (0.00 sec)
