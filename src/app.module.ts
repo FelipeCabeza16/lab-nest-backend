@@ -7,6 +7,8 @@ import { MaterialsModule } from './materials/materials.module';
 import * as Joi from 'joi';
 import config from './config';
 import { DatabaseModule } from './database/database.module';
+import { ProjectsModule } from './projects/projects.module';
+import { LocationModule } from './location/location.module';
 
 @Module({
   imports: [
@@ -31,6 +33,8 @@ import { DatabaseModule } from './database/database.module';
     }),
     DatabaseModule,
     MaterialsModule,
+    ProjectsModule,
+    LocationModule,
   ],
   controllers: [AppController],
   providers: [AppService],
