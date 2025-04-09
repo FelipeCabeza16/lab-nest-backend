@@ -1,8 +1,9 @@
 import { DataSource } from 'typeorm';
-import { Material } from '../entities/material.entity';
-import { Unit } from '../entities/unit.entity';
-import { State } from '../projects/entities/state.entity';
-import { City } from '../projects/entities/city.entity';
+import { Material } from '../materials/entities/material.entity';
+import { Unit } from '../materials/entities/unit.entity';
+import { State } from '../location/entities/state.entity';
+import { City } from '../location/entities/city.entity';
+import { Project } from '../projects/entities/project.entity';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -14,7 +15,7 @@ export const AppDataSource = new DataSource({
   username: process.env.TYPEORM_USERNAME || 'postgres',
   password: process.env.TYPEORM_PASSWORD || 'postgres',
   database: process.env.TYPEORM_DATABASE || 'postgres',
-  entities: [Material, Unit, State, City],
+  entities: [Material, Unit, State, City, Project],
   migrations: [
     process.env.TYPEORM_MIGRATIONS || 'src/database/migrations/*.ts',
   ],
