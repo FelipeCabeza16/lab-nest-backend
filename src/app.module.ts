@@ -6,6 +6,7 @@ import { MaterialsModule } from './materials/materials.module';
 
 import * as Joi from 'joi';
 import config from './config';
+import { DatabaseModule } from './database/database.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import config from './config';
         JWT_SECRET: Joi.string().required(),
       }),
     }),
+    DatabaseModule,
     MaterialsModule,
   ],
   controllers: [AppController],
