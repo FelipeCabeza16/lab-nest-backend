@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
+import { MaterialsModule } from './materials/materials.module';
 
 import * as Joi from 'joi';
 import config from './config';
@@ -27,6 +28,7 @@ import config from './config';
         JWT_SECRET: Joi.string().required(),
       }),
     }),
+    MaterialsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
