@@ -18,7 +18,7 @@ export class Project {
   @Column()
   name: string;
 
-  @Column({ nullable: true })
+  @Column()
   description: string;
 
   @ManyToMany(() => Material)

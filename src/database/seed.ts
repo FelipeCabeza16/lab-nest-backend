@@ -99,7 +99,7 @@ async function seed() {
 
     // Insertar Unidades y Materiales
     const savedUnits = await dataSource.getRepository(Unit).save(unitsSeed);
-    await dataSource.getRepository(Material).save(
+    const savedMaterials = await dataSource.getRepository(Material).save(
       materialsSeed.map((material, index) => ({
         ...material,
         unit: savedUnits[index % savedUnits.length],
@@ -107,7 +107,34 @@ async function seed() {
     );
 
     // Insertar Proyectos
-    await dataSource.getRepository(Project).save(projectsSeed);
+    const savedProjects = await dataSource.getRepository(Project).save(projectsSeed);
+
+    // Crear relaciones many-to-many
+    // Proyecto 1 (Las Palmas) con materiales 1, 2, 3 y ciudades 1, 2
+    await dataSource
+      .createQueryBuilder()
+      .relation(Project, 'materials')
+      .of(savedProjects[0])
+      .add([savedMaterials[0], savedMaterials[1], savedMaterials[2]]);
+
+    await dataSource
+      .createQueryBuilder()
+      .relation(Project, 'cities')
+      .of(savedProjects[0])
+      .add([savedCities[0], savedCities[1]]);
+
+    // Proyecto 2 (Plaza Mayor) con materiales 3, 4, 5 y ciudades 2, 3
+    await dataSource
+      .createQueryBuilder()
+      .relation(Project, 'materials')
+      .of(savedProjects[1])
+      .add([savedMaterials[2], savedMaterials[3], savedMaterials[4]]);
+
+    await dataSource
+      .createQueryBuilder()
+      .relation(Project, 'cities')
+      .of(savedProjects[1])
+      .add([savedCities[1], savedCities[2]]);
 
     console.log('✅ Seeding completed.');
   } catch (error) {
