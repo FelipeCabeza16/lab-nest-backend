@@ -3,6 +3,9 @@ import { ConfigType } from '@nestjs/config';
 import { Client } from 'pg';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import config from 'src/config';
+import { Unit } from '../materials/entities/unit.entity';
+import { DatabaseSeeder } from './seeders/database.seeder';
+import { UnitsSeeder } from './seeders/units/units.seeder';
 
 @Global()
 @Module({
@@ -23,6 +26,7 @@ import config from 'src/config';
         };
       },
     }),
+    TypeOrmModule.forFeature([Unit]),
   ],
   providers: [
     {
@@ -45,6 +49,8 @@ import config from 'src/config';
       },
       inject: [config.KEY],
     },
+    DatabaseSeeder,
+    UnitsSeeder,
   ],
   exports: ['APP_NAME', 'PG'],
 })

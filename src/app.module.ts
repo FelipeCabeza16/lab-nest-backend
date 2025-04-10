@@ -3,12 +3,13 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { MaterialsModule } from './materials/materials.module';
-
-import * as Joi from 'joi';
-import config from './config';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { DatabaseModule } from './database/database.module';
 import { ProjectsModule } from './projects/projects.module';
 import { LocationModule } from './location/location.module';
+
+import * as Joi from 'joi';
+import config from './config';
 
 @Module({
   imports: [
@@ -31,10 +32,20 @@ import { LocationModule } from './location/location.module';
         JWT_SECRET: Joi.string().required(),
       }),
     }),
-    DatabaseModule,
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: process.env.DB_HOST,
+      port: parseInt(process.env.DB_PORT, 10),
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE,
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      synchronize: process.env.NODE_ENV !== 'production',
+    }),
     MaterialsModule,
     ProjectsModule,
     LocationModule,
+    DatabaseModule,
   ],
   controllers: [AppController],
   providers: [AppService],
