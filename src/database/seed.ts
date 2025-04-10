@@ -35,14 +35,18 @@ export const citiesSeed = [
 ];
 
 export const unitsSeed = [
-  { name: 'UNIDAD', description: 'UNIDAD DE MEDIDA BÁSICA' },
-  { name: 'KILOGRAMO', description: 'UNIDAD DE MEDIDA DE PESO' },
-  { name: 'METRO', description: 'UNIDAD DE MEDIDA DE LONGITUD' },
+  { name: 'UNIDAD', code: 'UN', description: 'UNIDAD DE MEDIDA BÁSICA' },
+  { name: 'KILOGRAMO', code: 'KG', description: 'UNIDAD DE MEDIDA DE PESO' },
+  { name: 'METRO', code: 'M', description: 'UNIDAD DE MEDIDA DE LONGITUD' },
 ];
 
 export const materialsSeed = [
   { code: 'CEM-001', description: 'CEMENTO GRIS 50KG', price: 25000 },
-  { code: 'VAR-001', description: 'VARILLA DE ACERO 1/2 PULGADA', price: 35000 },
+  {
+    code: 'VAR-001',
+    description: 'VARILLA DE ACERO 1/2 PULGADA',
+    price: 35000,
+  },
   { code: 'LAD-001', description: 'LADRILLO COMÚN', price: 850 },
   { code: 'ARE-001', description: 'ARENA FINA M3', price: 45000 },
   { code: 'PIN-001', description: 'PINTURA LÁTEX 20L', price: 120000 },
@@ -107,7 +111,9 @@ async function seed() {
     );
 
     // Insertar Proyectos
-    const savedProjects = await dataSource.getRepository(Project).save(projectsSeed);
+    const savedProjects = await dataSource
+      .getRepository(Project)
+      .save(projectsSeed);
 
     // Crear relaciones many-to-many
     // Proyecto 1 (Las Palmas) con materiales 1, 2, 3 y ciudades 1, 2

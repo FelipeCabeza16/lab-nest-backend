@@ -19,6 +19,9 @@ export class Unit {
   @Column()
   description: string;
 
+  @Column({ unique: true })
+  code: string;
+
   @OneToMany(() => Material, (material) => material.unit)
   materials: Material[];
 
