@@ -4,7 +4,6 @@ import { Client } from 'pg';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import config from 'src/config';
 import { Unit } from '../materials/entities/unit.entity';
-import { DatabaseSeeder } from './seeders/database.seeder';
 
 @Global()
 @Module({
@@ -48,7 +47,6 @@ import { DatabaseSeeder } from './seeders/database.seeder';
       },
       inject: [config.KEY],
     },
-    DatabaseSeeder,
   ],
   exports: ['APP_NAME', 'PG'],
 })

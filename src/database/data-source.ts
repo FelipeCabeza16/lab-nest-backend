@@ -21,6 +21,6 @@ export const AppDataSource = new DataSource({
   ],
   migrationsTableName:
     process.env.TYPEORM_MIGRATIONS_TABLE_NAME || 'migrations',
-  synchronize: process.env.TYPEORM_SYNCHRONIZE === 'true',
+  synchronize: false,
   logging: process.env.TYPEORM_LOGGING === 'true',
 });

@@ -74,7 +74,7 @@ async function seed() {
     password: process.env.TYPEORM_PASSWORD || 'postgres',
     database: process.env.TYPEORM_DATABASE || 'postgres',
     entities: [Material, Unit, State, City, Project],
-    synchronize: true,
+    synchronize: false,
   });
 
   try {
