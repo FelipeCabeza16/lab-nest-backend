@@ -96,4 +96,7 @@ docker-compose down
 To stop and remove all data (including database volumes):
 ```bash
 docker-compose down -v
+docker-compose up
+npm run db:migrate:run
+npm run db:seed
 ```

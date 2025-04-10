@@ -1,4 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { Material } from './material.entity';
 
 @Entity()
@@ -9,10 +16,16 @@ export class Unit {
   @Column({ unique: true })
   name: string;
 
-  @Column({ nullable: true })
+  @Column()
   description: string;
 
-  @OneToOne(() => Material, (material) => material.unit)
-  material: Material;
+  @OneToMany(() => Material, (material) => material.unit)
+  materials: Material[];
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }
  

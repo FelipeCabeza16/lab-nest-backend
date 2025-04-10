@@ -2,7 +2,7 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  OneToOne,
+  ManyToOne,
   JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
@@ -20,7 +20,7 @@ export class Material {
   @Column()
   description: string;
 
-  @OneToOne(() => Unit, (unit) => unit.material)
+  @ManyToOne(() => Unit, (unit) => unit.materials)
   @JoinColumn()
   unit: Unit;
 
