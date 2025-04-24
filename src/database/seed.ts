@@ -3,36 +3,9 @@ import { Unit } from '../materials/entities/unit.entity';
 import { Material } from '../materials/entities/material.entity';
 import { State } from '../location/entities/state.entity';
 import { City } from '../location/entities/city.entity';
-import { Project } from '../projects/entities/project.entity';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
-
-export const statesSeed = [
-  { name: 'SANTANDER' },
-  { name: 'ANTIOQUIA' },
-  { name: 'CUNDINAMARCA' },
-  { name: 'VALLE DEL CAUCA' },
-  { name: 'ATLÁNTICO' },
-  { name: 'BOYACÁ' },
-  { name: 'NARIÑO' },
-  { name: 'TOLIMA' },
-  { name: 'HUILA' },
-  { name: 'META' },
-];
-
-export const citiesSeed = [
-  { name: 'BUCARAMANGA' },
-  { name: 'MEDELLÍN' },
-  { name: 'BOGOTÁ' },
-  { name: 'CALI' },
-  { name: 'BARRANQUILLA' },
-  { name: 'TUNJA' },
-  { name: 'PASTO' },
-  { name: 'IBAGUÉ' },
-  { name: 'NEIVA' },
-  { name: 'VILLAVICENCIO' },
-];
 
 export const unitsSeed = [
   { name: 'UNIDAD', code: 'UN', description: 'UNIDAD DE MEDIDA BÁSICA' },
@@ -52,17 +25,6 @@ export const materialsSeed = [
   { code: 'PIN-001', description: 'PINTURA LÁTEX 20L', price: 120000 },
 ];
 
-export const projectsSeed = [
-  {
-    name: 'CONJUNTO RESIDENCIAL LAS PALMAS',
-    description: 'PROYECTO DE 100 APARTAMENTOS DE INTERÉS SOCIAL',
-  },
-  {
-    name: 'CENTRO COMERCIAL PLAZA MAYOR',
-    description: 'COMPLEJO COMERCIAL DE 5 NIVELES',
-  },
-];
-
 async function seed() {
   console.log('🌱 Starting seeding...');
 
@@ -73,7 +35,7 @@ async function seed() {
     username: process.env.TYPEORM_USERNAME || 'postgres',
     password: process.env.TYPEORM_PASSWORD || 'postgres',
     database: process.env.TYPEORM_DATABASE || 'postgres',
-    entities: [Material, Unit, State, City, Project],
+    entities: [Material, Unit, State, City],
     synchronize: false,
   });
 
@@ -81,70 +43,83 @@ async function seed() {
     await dataSource.initialize();
     console.log('✅ Data Source has been initialized!');
 
-    // Borrar tablas intermedias primero
-    await dataSource.getRepository('project_materials').delete({});
-    await dataSource.getRepository('project_cities').delete({});
-
-    // Luego las entidades principales
-    await dataSource.getRepository(Project).delete({});
+    // Delete existing data in correct order (respecting foreign key constraints)
     await dataSource.getRepository(Material).delete({});
     await dataSource.getRepository(Unit).delete({});
     await dataSource.getRepository(City).delete({});
     await dataSource.getRepository(State).delete({});
 
-    // Insertar Estados y Ciudades (relación 1:1 por simplicidad)
-    const savedStates = await dataSource.getRepository(State).save(statesSeed);
-    const savedCities = await dataSource.getRepository(City).save(
-      citiesSeed.map((city, index) => ({
-        ...city,
-        state: savedStates[index % savedStates.length],
-      })),
-    );
-
-    // Insertar Unidades y Materiales
+    // Insert Units and Materials
     const savedUnits = await dataSource.getRepository(Unit).save(unitsSeed);
+    console.log('✅ Units seeded:', savedUnits);
+
     const savedMaterials = await dataSource.getRepository(Material).save(
       materialsSeed.map((material, index) => ({
         ...material,
         unit: savedUnits[index % savedUnits.length],
       })),
     );
+    console.log('✅ Materials seeded:', savedMaterials);
 
-    // Insertar Proyectos
-    const savedProjects = await dataSource
-      .getRepository(Project)
-      .save(projectsSeed);
+    // Create states
+    const states = await Promise.all([
+      dataSource.getRepository(State).save({ name: 'ANTIOQUIA' }),
+      dataSource.getRepository(State).save({ name: 'ATLÁNTICO' }),
+      dataSource.getRepository(State).save({ name: 'BOGOTÁ D.C.' }),
+      dataSource.getRepository(State).save({ name: 'BOLÍVAR' }),
+      dataSource.getRepository(State).save({ name: 'BOYACÁ' }),
+      dataSource.getRepository(State).save({ name: 'CALDAS' }),
+      dataSource.getRepository(State).save({ name: 'CAQUETÁ' }),
+      dataSource.getRepository(State).save({ name: 'CAUCA' }),
+      dataSource.getRepository(State).save({ name: 'CESAR' }),
+      dataSource.getRepository(State).save({ name: 'CÓRDOBA' }),
+      dataSource.getRepository(State).save({ name: 'CUNDINAMARCA' }),
+      dataSource.getRepository(State).save({ name: 'CHOCÓ' }),
+      dataSource.getRepository(State).save({ name: 'HUILA' }),
+      dataSource.getRepository(State).save({ name: 'LA GUAJIRA' }),
+      dataSource.getRepository(State).save({ name: 'MAGDALENA' }),
+      dataSource.getRepository(State).save({ name: 'META' }),
+      dataSource.getRepository(State).save({ name: 'NARIÑO' }),
+      dataSource.getRepository(State).save({ name: 'NORTE DE SANTANDER' }),
+      dataSource.getRepository(State).save({ name: 'QUINDÍO' }),
+      dataSource.getRepository(State).save({ name: 'RISARALDA' }),
+      dataSource.getRepository(State).save({ name: 'SANTANDER' }),
+      dataSource.getRepository(State).save({ name: 'SUCRE' }),
+      dataSource.getRepository(State).save({ name: 'TOLIMA' }),
+      dataSource.getRepository(State).save({ name: 'VALLE DEL CAUCA' }),
+      dataSource.getRepository(State).save({ name: 'ARAUCA' }),
+      dataSource.getRepository(State).save({ name: 'CASANARE' }),
+      dataSource.getRepository(State).save({ name: 'PUTUMAYO' }),
+      dataSource.getRepository(State).save({ name: 'SAN ANDRÉS' }),
+      dataSource.getRepository(State).save({ name: 'AMAZONAS' }),
+      dataSource.getRepository(State).save({ name: 'GUAINÍA' }),
+      dataSource.getRepository(State).save({ name: 'GUAVIARE' }),
+      dataSource.getRepository(State).save({ name: 'VAUPÉS' }),
+      dataSource.getRepository(State).save({ name: 'VICHADA' }),
+    ]);
+    console.log('✅ States seeded:', states);
 
-    // Crear relaciones many-to-many
-    // Proyecto 1 (Las Palmas) con materiales 1, 2, 3 y ciudades 1, 2
-    await dataSource
-      .createQueryBuilder()
-      .relation(Project, 'materials')
-      .of(savedProjects[0])
-      .add([savedMaterials[0], savedMaterials[1], savedMaterials[2]]);
+    // Create cities
+    const cities = await Promise.all([
+      // Antioquia
+      dataSource.getRepository(City).save({ name: 'MEDELLÍN', state: states[0] }),
+      dataSource.getRepository(City).save({ name: 'BELLO', state: states[0] }),
+      dataSource.getRepository(City).save({ name: 'ENVIGADO', state: states[0] }),
+      // Atlántico
+      dataSource.getRepository(City).save({ name: 'BARRANQUILLA', state: states[1] }),
+      dataSource.getRepository(City).save({ name: 'SOLEDAD', state: states[1] }),
+      // Bogotá D.C.
+      dataSource.getRepository(City).save({ name: 'BOGOTÁ', state: states[2] }),
+      // Valle del Cauca
+      dataSource.getRepository(City).save({ name: 'CALI', state: states[23] }),
+      dataSource.getRepository(City).save({ name: 'PALMIRA', state: states[23] }),
+      dataSource.getRepository(City).save({ name: 'BUENAVENTURA', state: states[23] }),
+    ]);
+    console.log('✅ Cities seeded:', cities);
 
-    await dataSource
-      .createQueryBuilder()
-      .relation(Project, 'cities')
-      .of(savedProjects[0])
-      .add([savedCities[0], savedCities[1]]);
-
-    // Proyecto 2 (Plaza Mayor) con materiales 3, 4, 5 y ciudades 2, 3
-    await dataSource
-      .createQueryBuilder()
-      .relation(Project, 'materials')
-      .of(savedProjects[1])
-      .add([savedMaterials[2], savedMaterials[3], savedMaterials[4]]);
-
-    await dataSource
-      .createQueryBuilder()
-      .relation(Project, 'cities')
-      .of(savedProjects[1])
-      .add([savedCities[1], savedCities[2]]);
-
-    console.log('✅ Seeding completed.');
+    console.log('✅ Seeding completed!');
   } catch (error) {
-    console.error('❌ Error during seeding:', error);
+    console.error('Error during seeding:', error);
   } finally {
     await dataSource.destroy();
   }

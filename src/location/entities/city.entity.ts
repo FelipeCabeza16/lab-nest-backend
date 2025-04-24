@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 import { State } from './state.entity';
 
-@Entity()
+@Entity('cities')
 export class City {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -17,12 +17,12 @@ export class City {
   @Column()
   name: string;
 
+  @Column({ name: 'stateId' })
+  stateId: string;
+
   @ManyToOne(() => State, (state) => state.cities)
   @JoinColumn({ name: 'stateId' })
   state: State;
-
-  @Column()
-  stateId: string;
 
   @CreateDateColumn()
   createdAt: Date;

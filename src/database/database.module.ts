@@ -4,6 +4,11 @@ import { Client } from 'pg';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import config from 'src/config';
 import { Unit } from '../materials/entities/unit.entity';
+import { DatabaseSeeder } from './seeders/database.seeder';
+import { UnitsSeeder } from './seeders/units.seeder';
+import { LocationSeeder } from './seeders/location.seeder';
+import { State } from '../location/entities/state.entity';
+import { City } from '../location/entities/city.entity';
 
 @Global()
 @Module({
@@ -24,7 +29,7 @@ import { Unit } from '../materials/entities/unit.entity';
         };
       },
     }),
-    TypeOrmModule.forFeature([Unit]),
+    TypeOrmModule.forFeature([Unit, State, City]),
   ],
   providers: [
     {
@@ -47,7 +52,10 @@ import { Unit } from '../materials/entities/unit.entity';
       },
       inject: [config.KEY],
     },
+    DatabaseSeeder,
+    UnitsSeeder,
+    LocationSeeder,
   ],
-  exports: ['APP_NAME', 'PG'],
+  exports: ['APP_NAME', 'PG', DatabaseSeeder],
 })
 export class DatabaseModule {}

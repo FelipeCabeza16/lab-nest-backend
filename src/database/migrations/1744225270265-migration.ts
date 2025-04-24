@@ -25,7 +25,7 @@ export class Migration1744225270265 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "project_materials" ADD CONSTRAINT "FK_5400e7b44258b1b9781a0873c2e" FOREIGN KEY ("projectId") REFERENCES "project"("id") ON DELETE CASCADE ON UPDATE CASCADE`);
         await queryRunner.query(`ALTER TABLE "project_materials" ADD CONSTRAINT "FK_64bc2f6a11c065f18aed507f31f" FOREIGN KEY ("materialId") REFERENCES "material"("id") ON DELETE CASCADE ON UPDATE CASCADE`);
         await queryRunner.query(`ALTER TABLE "project_cities" ADD CONSTRAINT "FK_adb31681fc86e7e980c0914f3f4" FOREIGN KEY ("projectId") REFERENCES "project"("id") ON DELETE CASCADE ON UPDATE CASCADE`);
-        await queryRunner.query(`ALTER TABLE "project_cities" ADD CONSTRAINT "FK_899f602062d68278d4411fa3518" FOREIGN KEY ("cityId") REFERENCES "city"("id") ON DELETE CASCADE ON UPDATE CASCADE`);
+        await queryRunner.query(`ALTER TABLE "project_cities" ADD CONSTRAINT "FK_899f602062d68278d4411fa3518" FOREIGN KEY ("cityId") REFERENCES "cities"("id") ON DELETE CASCADE ON UPDATE CASCADE`);
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {

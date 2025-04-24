@@ -16,11 +16,8 @@ export const AppDataSource = new DataSource({
   password: process.env.TYPEORM_PASSWORD || 'postgres',
   database: process.env.TYPEORM_DATABASE || 'postgres',
   entities: [Material, Unit, State, City, Project],
-  migrations: [
-    process.env.TYPEORM_MIGRATIONS || 'src/database/migrations/*.ts',
-  ],
-  migrationsTableName:
-    process.env.TYPEORM_MIGRATIONS_TABLE_NAME || 'migrations',
+  migrations: ['src/database/migrations/*.ts'],
+  migrationsTableName: 'migrations',
   synchronize: false,
-  logging: process.env.TYPEORM_LOGGING === 'true',
+  logging: true,
 });

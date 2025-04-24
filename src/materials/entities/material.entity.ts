@@ -3,25 +3,23 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
-  JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { Unit } from './unit.entity';
 
-@Entity()
+@Entity('materials')
 export class Material {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ unique: true })
+  @Column()
   code: string;
 
   @Column()
   description: string;
 
-  @ManyToOne(() => Unit, (unit) => unit.materials)
-  @JoinColumn()
+  @ManyToOne(() => Unit)
   unit: Unit;
 
   @Column('decimal', { precision: 10, scale: 2 })

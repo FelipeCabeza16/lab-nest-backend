@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 import { City } from './city.entity';
 
-@Entity()
+@Entity('states')
 export class State {
   @PrimaryGeneratedColumn('uuid')
   id: string;
