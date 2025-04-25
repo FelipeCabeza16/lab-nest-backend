@@ -14,6 +14,10 @@ async function bootstrap() {
       },
     }),
   );
+  app.enableCors({
+    origin: 'http://localhost:4200',
+    credentials: true,
+  });
   const config = new DocumentBuilder()
     .setTitle('Backend Lab Nest IDRD API')
     .setDescription('API for managing IDRD materials and units LAB')
