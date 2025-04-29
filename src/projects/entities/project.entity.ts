@@ -1,5 +1,15 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, CreateDateColumn, UpdateDateColumn, JoinColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  CreateDateColumn,
+  UpdateDateColumn,
+  JoinColumn,
+  OneToMany,
+} from 'typeorm';
 import { City } from '../../location/entities/city.entity';
+import { ProjectMaterial } from './project-material.entity';
 
 @Entity('project')
 export class Project {
@@ -15,6 +25,12 @@ export class Project {
   @ManyToOne(() => City)
   @JoinColumn({ name: 'cityId' })
   city: City;
+
+  @OneToMany(
+    () => ProjectMaterial,
+    (projectMaterial) => projectMaterial.project,
+  )
+  projectMaterials: ProjectMaterial[];
 
   @CreateDateColumn()
   createdAt: Date;

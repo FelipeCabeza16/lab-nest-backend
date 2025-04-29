@@ -4,9 +4,11 @@ import { Client } from 'pg';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import config from 'src/config';
 import { Unit } from '../materials/entities/unit.entity';
+import { Material } from '../materials/entities/material.entity';
 import { DatabaseSeeder } from './seeders/database.seeder';
 import { UnitsSeeder } from './seeders/units.seeder';
 import { LocationSeeder } from './seeders/location.seeder';
+import { MaterialSeeder } from './seeders/material.seeder';
 import { State } from '../location/entities/state.entity';
 import { City } from '../location/entities/city.entity';
 
@@ -29,7 +31,7 @@ import { City } from '../location/entities/city.entity';
         };
       },
     }),
-    TypeOrmModule.forFeature([Unit, State, City]),
+    TypeOrmModule.forFeature([Unit, Material, State, City]),
   ],
   providers: [
     {
@@ -55,6 +57,7 @@ import { City } from '../location/entities/city.entity';
     DatabaseSeeder,
     UnitsSeeder,
     LocationSeeder,
+    MaterialSeeder,
   ],
   exports: ['APP_NAME', 'PG', DatabaseSeeder],
 })

@@ -59,14 +59,14 @@ export class LocationSeeder {
       this.cityRepository.save({ name: 'Medellín', state: states[0] }),
       this.cityRepository.save({ name: 'Bello', state: states[0] }),
       this.cityRepository.save({ name: 'Envigado', state: states[0] }),
-      
+
       // Atlántico
       this.cityRepository.save({ name: 'Barranquilla', state: states[1] }),
       this.cityRepository.save({ name: 'Soledad', state: states[1] }),
-      
+
       // Bogotá D.C.
       this.cityRepository.save({ name: 'Bogotá', state: states[2] }),
-      
+
       // Valle del Cauca
       this.cityRepository.save({ name: 'Cali', state: states[23] }),
       this.cityRepository.save({ name: 'Palmira', state: states[23] }),
@@ -77,4 +77,4 @@ export class LocationSeeder {
 
     return { states, cities };
   }
-} 
+}

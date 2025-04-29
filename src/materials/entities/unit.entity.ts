@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 import { Material } from './material.entity';
 
-@Entity('units')
+@Entity('unit')
 export class Unit {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -22,6 +22,9 @@ export class Unit {
   @Column({ unique: true })
   code: string;
 
+  @Column()
+  symbol: string;
+
   @OneToMany(() => Material, (material) => material.unit)
   materials: Material[];
 
@@ -31,4 +34,3 @@ export class Unit {
   @UpdateDateColumn()
   updatedAt: Date;
 }
- 

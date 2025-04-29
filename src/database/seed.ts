@@ -8,21 +8,57 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 export const unitsSeed = [
-  { name: 'UNIDAD', code: 'UN', description: 'UNIDAD DE MEDIDA BÁSICA' },
-  { name: 'KILOGRAMO', code: 'KG', description: 'UNIDAD DE MEDIDA DE PESO' },
-  { name: 'METRO', code: 'M', description: 'UNIDAD DE MEDIDA DE LONGITUD' },
+  {
+    name: 'UNIDAD',
+    symbol: 'u',
+    code: 'UN',
+    description: 'UNIDAD DE MEDIDA BÁSICA',
+  },
+  {
+    name: 'KILOGRAMO',
+    symbol: 'kg',
+    code: 'KG',
+    description: 'UNIDAD DE MEDIDA DE PESO',
+  },
+  {
+    name: 'METRO',
+    symbol: 'm',
+    code: 'M',
+    description: 'UNIDAD DE MEDIDA DE LONGITUD',
+  },
 ];
 
 export const materialsSeed = [
-  { code: 'CEM-001', description: 'CEMENTO GRIS 50KG', price: 25000 },
+  {
+    code: 'CEM-001',
+    name: 'CEMENTO GRIS 50KG',
+    description: 'CEMENTO GRIS 50KG',
+    price: 25000,
+  },
   {
     code: 'VAR-001',
+    name: 'VARILLA DE ACERO 1/2 PULGADA',
     description: 'VARILLA DE ACERO 1/2 PULGADA',
     price: 35000,
   },
-  { code: 'LAD-001', description: 'LADRILLO COMÚN', price: 850 },
-  { code: 'ARE-001', description: 'ARENA FINA M3', price: 45000 },
-  { code: 'PIN-001', description: 'PINTURA LÁTEX 20L', price: 120000 },
+  {
+    code: 'LAD-001',
+    name: 'LADRILLO COMÚN',
+    description: 'LADRILLO COMÚN',
+    price: 850,
+  },
+  {
+    code: 'ARE-001',
+    name: 'ARENA FINA M3',
+    description: 'ARENA FINA M3',
+    price: 45000,
+  },
+  {
+    code: 'PIN-001',
+    name: 'PINTURA LÁTEX 20L',
+    description: 'PINTURA LÁTEX 20L',
+    price: 120000,
+  },
 ];
 
 async function seed() {
@@ -102,18 +138,30 @@ async function seed() {
     // Create cities
     const cities = await Promise.all([
       // Antioquia
-      dataSource.getRepository(City).save({ name: 'MEDELLÍN', state: states[0] }),
+      dataSource
+        .getRepository(City)
+        .save({ name: 'MEDELLÍN', state: states[0] }),
       dataSource.getRepository(City).save({ name: 'BELLO', state: states[0] }),
-      dataSource.getRepository(City).save({ name: 'ENVIGADO', state: states[0] }),
+      dataSource
+        .getRepository(City)
+        .save({ name: 'ENVIGADO', state: states[0] }),
       // Atlántico
-      dataSource.getRepository(City).save({ name: 'BARRANQUILLA', state: states[1] }),
-      dataSource.getRepository(City).save({ name: 'SOLEDAD', state: states[1] }),
+      dataSource
+        .getRepository(City)
+        .save({ name: 'BARRANQUILLA', state: states[1] }),
+      dataSource
+        .getRepository(City)
+        .save({ name: 'SOLEDAD', state: states[1] }),
       // Bogotá D.C.
       dataSource.getRepository(City).save({ name: 'BOGOTÁ', state: states[2] }),
       // Valle del Cauca
       dataSource.getRepository(City).save({ name: 'CALI', state: states[23] }),
-      dataSource.getRepository(City).save({ name: 'PALMIRA', state: states[23] }),
-      dataSource.getRepository(City).save({ name: 'BUENAVENTURA', state: states[23] }),
+      dataSource
+        .getRepository(City)
+        .save({ name: 'PALMIRA', state: states[23] }),
+      dataSource
+        .getRepository(City)
+        .save({ name: 'BUENAVENTURA', state: states[23] }),
     ]);
     console.log('✅ Cities seeded:', cities);
 

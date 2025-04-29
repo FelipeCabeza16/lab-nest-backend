@@ -8,10 +8,13 @@ import {
 } from 'typeorm';
 import { Unit } from './unit.entity';
 
-@Entity('materials')
+@Entity('material')
 export class Material {
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @Column({ unique: true })
+  name: string;
 
   @Column()
   code: string;

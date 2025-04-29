@@ -13,7 +13,11 @@ export class UnitsSeeder {
   async seed() {
     const units = [
       { name: 'UNIDAD', code: 'UN', description: 'UNIDAD DE MEDIDA BÁSICA' },
-      { name: 'KILOGRAMO', code: 'KG', description: 'UNIDAD DE MEDIDA DE PESO' },
+      {
+        name: 'KILOGRAMO',
+        code: 'KG',
+        description: 'UNIDAD DE MEDIDA DE PESO',
+      },
       { name: 'METRO', code: 'M', description: 'UNIDAD DE MEDIDA DE LONGITUD' },
     ];
 
@@ -21,4 +25,4 @@ export class UnitsSeeder {
     console.log('Units seeded:', savedUnits);
     return savedUnits;
   }
-} 
+}

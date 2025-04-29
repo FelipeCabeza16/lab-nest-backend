@@ -26,7 +26,7 @@ export class Material {
   unit: Unit;
 
   @Column('decimal', { precision: 10, scale: 2 })
-  cost: number;
+  price: number;
 
   @CreateDateColumn()
   createdAt: Date;
