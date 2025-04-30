@@ -22,7 +22,10 @@ export class ProjectsController {
 
   @Post()
   @ApiOperation({ summary: 'Create a new project' })
-  @ApiResponse({ status: 201, description: 'The project has been successfully created.' })
+  @ApiResponse({
+    status: 201,
+    description: 'The project has been successfully created.',
+  })
   @ApiResponse({ status: 400, description: 'Bad request.' })
   async create(@Body() createProjectDto: CreateProjectDto) {
     return await this.projectsService.create(createProjectDto);
@@ -45,7 +48,10 @@ export class ProjectsController {
 
   @Get(':id/materials')
   @ApiOperation({ summary: 'Get all materials for a project' })
-  @ApiResponse({ status: 200, description: 'Return all materials for the project.' })
+  @ApiResponse({
+    status: 200,
+    description: 'Return all materials for the project.',
+  })
   @ApiResponse({ status: 404, description: 'Project not found.' })
   async getProjectMaterials(@Param('id') id: string) {
     const project = await this.projectsService.findOne(id);
@@ -54,16 +60,25 @@ export class ProjectsController {
 
   @Patch(':id')
   @ApiOperation({ summary: 'Update a project' })
-  @ApiResponse({ status: 200, description: 'The project has been successfully updated.' })
+  @ApiResponse({
+    status: 200,
+    description: 'The project has been successfully updated.',
+  })
   @ApiResponse({ status: 404, description: 'Project not found.' })
-  async update(@Param('id') id: string, @Body() updateProjectDto: UpdateProjectDto) {
+  async update(
+    @Param('id') id: string,
+    @Body() updateProjectDto: UpdateProjectDto,
+  ) {
     return await this.projectsService.update(id, updateProjectDto);
   }
 
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Delete a project' })
-  @ApiResponse({ status: 204, description: 'The project has been successfully deleted.' })
+  @ApiResponse({
+    status: 204,
+    description: 'The project has been successfully deleted.',
+  })
   @ApiResponse({ status: 404, description: 'Project not found.' })
   async remove(@Param('id') id: string) {
     await this.projectsService.remove(id);
@@ -71,18 +86,30 @@ export class ProjectsController {
 
   @Post(':id/materials')
   @ApiOperation({ summary: 'Add a material to a project' })
-  @ApiResponse({ status: 200, description: 'The material has been successfully added to the project.' })
+  @ApiResponse({
+    status: 200,
+    description: 'The material has been successfully added to the project.',
+  })
   @ApiResponse({ status: 404, description: 'Project or material not found.' })
-  async addMaterial(@Param('id') id: string, @Body() addMaterialDto: AddMaterialToProjectDto) {
+  async addMaterial(
+    @Param('id') id: string,
+    @Body() addMaterialDto: AddMaterialToProjectDto,
+  ) {
     return await this.projectsService.addMaterial(id, addMaterialDto);
   }
 
   @Delete(':id/materials/:materialId')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Remove a material from a project' })
-  @ApiResponse({ status: 204, description: 'The material has been successfully removed from the project.' })
+  @ApiResponse({
+    status: 204,
+    description: 'The material has been successfully removed from the project.',
+  })
   @ApiResponse({ status: 404, description: 'Project or material not found.' })
-  async removeMaterial(@Param('id') id: string, @Param('materialId') materialId: string) {
+  async removeMaterial(
+    @Param('id') id: string,
+    @Param('materialId') materialId: string,
+  ) {
     await this.projectsService.removeMaterial(id, materialId);
   }
 }

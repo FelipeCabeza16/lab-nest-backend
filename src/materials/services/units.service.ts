@@ -35,7 +35,7 @@ export class UnitsService {
   }
 
   async remove(id: string): Promise<void> {
-    const result = await this.unitRepository.delete(id);
+    const result = await this.unitRepository.softDelete(id);
     if (result.affected === 0) {
       throw new NotFoundException(`Unit with ID "${id}" not found`);
     }

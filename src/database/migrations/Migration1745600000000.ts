@@ -17,6 +17,7 @@ export class Migration1745600000000 implements MigrationInterface {
         "code" character varying NOT NULL,
         "createdAt" TIMESTAMP NOT NULL DEFAULT now(),
         "updatedAt" TIMESTAMP NOT NULL DEFAULT now(),
+        "deletedAt" TIMESTAMP,
         CONSTRAINT "PK_unit_id" PRIMARY KEY ("id"),
         CONSTRAINT "UQ_unit_code" UNIQUE ("code")
       )
@@ -31,6 +32,7 @@ export class Migration1745600000000 implements MigrationInterface {
         "price" numeric(10,2) NOT NULL,
         "createdAt" TIMESTAMP NOT NULL DEFAULT now(),
         "updatedAt" TIMESTAMP NOT NULL DEFAULT now(),
+        "deletedAt" TIMESTAMP,
         "unitId" uuid,
         CONSTRAINT "PK_material_id" PRIMARY KEY ("id"),
         CONSTRAINT "UQ_material_code" UNIQUE ("code"),
@@ -44,6 +46,7 @@ export class Migration1745600000000 implements MigrationInterface {
         "name" character varying NOT NULL,
         "createdAt" TIMESTAMP NOT NULL DEFAULT now(),
         "updatedAt" TIMESTAMP NOT NULL DEFAULT now(),
+        "deletedAt" TIMESTAMP,
         CONSTRAINT "PK_states_id" PRIMARY KEY ("id")
       )
     `);
@@ -55,6 +58,7 @@ export class Migration1745600000000 implements MigrationInterface {
         "stateId" uuid NOT NULL,
         "createdAt" TIMESTAMP NOT NULL DEFAULT now(),
         "updatedAt" TIMESTAMP NOT NULL DEFAULT now(),
+        "deletedAt" TIMESTAMP,
         CONSTRAINT "PK_cities_id" PRIMARY KEY ("id"),
         CONSTRAINT "FK_cities_state" FOREIGN KEY ("stateId") REFERENCES "states"("id") ON DELETE CASCADE
       )
@@ -68,6 +72,7 @@ export class Migration1745600000000 implements MigrationInterface {
         "cityId" uuid,
         "createdAt" TIMESTAMP NOT NULL DEFAULT now(),
         "updatedAt" TIMESTAMP NOT NULL DEFAULT now(),
+        "deletedAt" TIMESTAMP,
         CONSTRAINT "PK_project_id" PRIMARY KEY ("id"),
         CONSTRAINT "FK_project_city" FOREIGN KEY ("cityId") REFERENCES "cities"("id") ON DELETE SET NULL
       )
@@ -81,6 +86,7 @@ export class Migration1745600000000 implements MigrationInterface {
         "quantity" numeric(10,2) NOT NULL,
         "createdAt" TIMESTAMP NOT NULL DEFAULT now(),
         "updatedAt" TIMESTAMP NOT NULL DEFAULT now(),
+        "deletedAt" TIMESTAMP,
         CONSTRAINT "PK_project_materials_id" PRIMARY KEY ("id"),
         CONSTRAINT "FK_project_material_project" FOREIGN KEY ("projectId") REFERENCES "project"("id") ON DELETE CASCADE,
         CONSTRAINT "FK_project_material_material" FOREIGN KEY ("materialId") REFERENCES "material"("id") ON DELETE CASCADE

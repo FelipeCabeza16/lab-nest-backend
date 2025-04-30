@@ -7,6 +7,7 @@ import {
   UpdateDateColumn,
   JoinColumn,
   OneToMany,
+  DeleteDateColumn,
 } from 'typeorm';
 import { City } from '../../location/entities/city.entity';
 import { ProjectMaterial } from './project-material.entity';
@@ -37,4 +38,7 @@ export class Project {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @DeleteDateColumn()
+  deletedAt: Date;
 }

@@ -87,7 +87,7 @@ export class ProjectsService {
 
   async remove(id: string): Promise<void> {
     const project = await this.findOne(id);
-    await this.projectRepository.remove(project);
+    await this.projectRepository.softDelete(project);
   }
 
   async addMaterial(
