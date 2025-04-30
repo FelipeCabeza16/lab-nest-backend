@@ -9,6 +9,13 @@ export class CreateMaterialDto {
   })
   @IsString()
   code: string;
+  // name
+  @ApiProperty({
+    description: 'Name of the material',
+    example: 'Ladrillo rojo',
+  })
+  @IsString()
+  name: string;
 
   @ApiProperty({
     description: 'Description of the material',

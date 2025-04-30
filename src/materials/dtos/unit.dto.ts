@@ -2,16 +2,21 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsOptional, IsUUID } from 'class-validator';
 
 export class CreateUnitDto {
-  @ApiProperty({
-    description: 'Name of the unit (e.g., M², Unidad, Kg)',
-    example: 'M²',
-  })
+  @ApiProperty({ description: 'Name of the unit', example: 'Metro cuadrado' })
   @IsString()
   name: string;
 
+  @ApiProperty({ description: 'Symbol of the unit', example: 'm²' })
+  @IsString()
+  symbol: string;
+
+  @ApiProperty({ description: 'Code of the unit', example: 'M2' })
+  @IsString()
+  code: string;
+
   @ApiProperty({
     description: 'Description of the unit',
-    example: 'Metro cuadrado',
+    example: 'Unidad de medida de superficie',
     required: false,
   })
   @IsString()
@@ -20,24 +25,15 @@ export class CreateUnitDto {
 }
 
 export class UpdateUnitDto extends CreateUnitDto {
-  @ApiProperty({
-    description: 'UUID of the unit',
-    example: '123e4567-e89b-12d3-a456-426614174000',
-  })
+  @ApiProperty({ description: 'UUID of the unit', example: 'uuid' })
   @IsUUID()
   id: string;
 }
 
 export class UnitResponseDto extends UpdateUnitDto {
-  @ApiProperty({
-    description: 'Creation timestamp',
-    example: '2024-03-14T12:00:00Z',
-  })
+  @ApiProperty({ description: 'Created timestamp' })
   createdAt: Date;
 
-  @ApiProperty({
-    description: 'Last update timestamp',
-    example: '2024-03-14T12:00:00Z',
-  })
+  @ApiProperty({ description: 'Updated timestamp' })
   updatedAt: Date;
 }

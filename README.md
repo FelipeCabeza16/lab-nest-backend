@@ -1,4 +1,4 @@
-# 🛠️ Backend Lab Nest IDRD - Materiales y Proyectos
+# 🛠️ Backend Lab Nest - Materiales y Proyectos
 
 Este proyecto es un backend construido con **NestJS + PostgreSQL + TypeORM** para la gestión de materiales, unidades, proyectos y sus relaciones.
 

@@ -19,8 +19,8 @@ async function bootstrap() {
     credentials: true,
   });
   const config = new DocumentBuilder()
-    .setTitle('Backend Lab Nest IDRD API')
-    .setDescription('API for managing IDRD materials and units LAB')
+    .setTitle('Backend Lab Nest API')
+    .setDescription('API for managing materials and units LAB')
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);
